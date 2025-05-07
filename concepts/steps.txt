@@ -1,0 +1,22 @@
+project creation steps
+
+intall nest js globally
+    npm i -g @nestjs/cli
+    nest new project-name
+
+
+main.ts - entry point/root file
+
+run -> npm run start:dev
+
+concepts> nest generate module hello
+concepts> nest generate controller hello
+concepts> nest generate service hello
+
+concepts> nest generate module user
+concepts> nest generate controller user
+concepts> nest generate service user
+
+concepts> npm i @nestjs/config
+
+concepts> npm i joi
