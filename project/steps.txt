@@ -1,0 +1,8 @@
+================= creating the crud =================
+
+project> nest generate module posts
+project> nest generate controller posts
+project> nest generate service posts   
+
+create interfaces folder in project/src/posts
+crete post.interface.ts
