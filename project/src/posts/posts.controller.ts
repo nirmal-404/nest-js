@@ -14,32 +14,25 @@ import {
   ValidationPipe,
 } from '@nestjs/common'
 import { PostsService } from './posts.service'
-import { Posts } from './interfaces/post.interface'
+// import { Post as PostInterface } from './interfaces/post.interface'
 import { CreatePostDto } from './dto/create-post.dto'
 import { UpdatePostDto } from './dto/update-post.dto'
 import { PostExistsPipe } from './pipes/post-exists.pipe'
+import { Post as PostEntity} from './entities/post.entity'
 
 @Controller('posts')
 export class PostsController {
   constructor (private readonly postsService: PostsService) {}
 
   // Get  ->  http://localhost:3000/posts
-  // Get  ->  http://localhost:3000/posts?search=Post 3
   @Get()
-  findAll (@Query('search') search: string) {
-    const extractAllPosts = this.postsService.findall()
-
-    if (search) {
-      return extractAllPosts.filter(post =>
-        post.title.toLowerCase().includes(search.toLowerCase()),
-      )
-    }
-    return extractAllPosts
+  async findAll () : Promise<PostEntity[]> {
+    return this.postsService.findall()
   }
 
   // Get  ->  http://localhost:3000/posts/1
   @Get(':id')
-  findById (@Param('id', ParseIntPipe, PostExistsPipe) id: number): Posts {
+  async findById (@Param('id', ParseIntPipe, PostExistsPipe) id: number): Promise<PostEntity> {
     return this.postsService.findById(id)
   }
 
@@ -53,24 +46,24 @@ export class PostsController {
     transform: true,
     disableErrorMessages: false,
   }))
-  create (@Body() createPostData: CreatePostDto): Posts {
+  async create (@Body() createPostData: CreatePostDto): Promise<PostEntity> {
     return this.postsService.create(createPostData)
   }
 
   // Put  ->  http://localhost:3000/posts/4
   // Body  ->  { "title": "updated post", "content": "this is a updated post from postman", "authorName": "updated author" }
   @Put(':id')
-  update (
+  async update (
     @Param('id', ParseIntPipe, PostExistsPipe) id: number,
     @Body() updatePostData: UpdatePostDto,
-  ): Posts {
+  ): Promise<PostEntity> {
     return this.postsService.update(id, updatePostData)
   }
 
   // Delete  ->  http://localhost:3000/posts/4
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
-  delete (@Param('id', ParseIntPipe, PostExistsPipe) id: number) {
+  async delete (@Param('id', ParseIntPipe, PostExistsPipe) id: number) : Promise<void> {
     return this.postsService.delete(id)
   }
 }

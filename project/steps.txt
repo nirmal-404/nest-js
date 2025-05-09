@@ -11,34 +11,43 @@ crete post.interface.ts
 ================= Pipes, DTO, Validations =================
 
 project> npm i --save class-validator class-transformer
+
+
+============ DB connection with typeORM and PG ============
+project> npm i @nestjs/typeorm
+project> npm i typeorm
+project> npm i pg
+
+configure the type typeORM in app.module
+
 project>
 project>
 project>
 project>
-
-
-
-
-
-
-
-
-
-
-
+project>
+project>
+project>
+project>
 
 
 
 
 ======================== references ========================
 
-https://docs.nestjs.com/
-https://docs.nestjs.com/cli/usages#nest-generate
-https://docs.nestjs.com/techniques/configuration#using-the-configservice
-https://docs.nestjs.com/exception-filters#throwing-standard-exceptions
-https://docs.nestjs.com/pipes#class-validator
-https://docs.nestjs.com/techniques/validation#using-the-built-in-validationpipe
-https://docs.nestjs.com/pipes#custom-pipes
+Pipes, DTO, Validations
+    https://docs.nestjs.com/
+    https://docs.nestjs.com/cli/usages#nest-generate
+    https://docs.nestjs.com/techniques/configuration#using-the-configservice
+    https://docs.nestjs.com/exception-filters#throwing-standard-exceptions
+    https://docs.nestjs.com/pipes#class-validator
+    https://docs.nestjs.com/techniques/validation#using-the-built-in-validationpipe
+    https://docs.nestjs.com/pipes#custom-pipes
 
+DB connection with typeORM and PG
+    https://docs.nestjs.com/techniques/database
+    https://typeorm.io
+    https://typeorm.io/#removing-from-the-database
 
-
+    https://www.npmjs.com/package/@nestjs/typeorm
+    https://www.npmjs.com/package/typeorm
+    https://www.npmjs.com/package/pg
