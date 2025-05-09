@@ -10,9 +10,14 @@ import {
   Post,
   Put,
   Query,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common'
 import { PostsService } from './posts.service'
 import { Posts } from './interfaces/post.interface'
+import { CreatePostDto } from './dto/create-post.dto'
+import { UpdatePostDto } from './dto/update-post.dto'
+import { PostExistsPipe } from './pipes/post-exists.pipe'
 
 @Controller('posts')
 export class PostsController {
@@ -34,7 +39,7 @@ export class PostsController {
 
   // Get  ->  http://localhost:3000/posts/1
   @Get(':id')
-  findById (@Param('id', ParseIntPipe) id: number): Posts {
+  findById (@Param('id', ParseIntPipe, PostExistsPipe) id: number): Posts {
     return this.postsService.findById(id)
   }
 
@@ -42,7 +47,13 @@ export class PostsController {
   // Body  ->  { "title": "new post", "content": "this is a new post from postman", "authorName": "postman author" }
   @Post('create')
   @HttpCode(HttpStatus.CREATED)
-  create (@Body() createPostData: Omit<Posts, 'id' | 'createdAt'>): Posts {
+  @UsePipes(new ValidationPipe({
+    whitelist: true,
+    forbidNonWhitelisted: true,
+    transform: true,
+    disableErrorMessages: false,
+  }))
+  create (@Body() createPostData: CreatePostDto): Posts {
     return this.postsService.create(createPostData)
   }
 
@@ -50,8 +61,8 @@ export class PostsController {
   // Body  ->  { "title": "updated post", "content": "this is a updated post from postman", "authorName": "updated author" }
   @Put(':id')
   update (
-    @Param('id', ParseIntPipe) id: number,
-    @Body() updatePostData: Omit<Posts, 'id' | 'createdAt'>,
+    @Param('id', ParseIntPipe, PostExistsPipe) id: number,
+    @Body() updatePostData: UpdatePostDto,
   ): Posts {
     return this.postsService.update(id, updatePostData)
   }
@@ -59,7 +70,7 @@ export class PostsController {
   // Delete  ->  http://localhost:3000/posts/4
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
-  delete (@Param('id', ParseIntPipe) id: number) {
+  delete (@Param('id', ParseIntPipe, PostExistsPipe) id: number) {
     return this.postsService.delete(id)
   }
 }

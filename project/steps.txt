@@ -6,3 +6,39 @@ project> nest generate service posts
 
 create interfaces folder in project/src/posts
 crete post.interface.ts
+
+
+================= Pipes, DTO, Validations =================
+
+project> npm i --save class-validator class-transformer
+project>
+project>
+project>
+project>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+======================== references ========================
+
+https://docs.nestjs.com/
+https://docs.nestjs.com/cli/usages#nest-generate
+https://docs.nestjs.com/techniques/configuration#using-the-configservice
+https://docs.nestjs.com/exception-filters#throwing-standard-exceptions
+https://docs.nestjs.com/pipes#class-validator
+https://docs.nestjs.com/techniques/validation#using-the-built-in-validationpipe
+https://docs.nestjs.com/pipes#custom-pipes
+
+
+
