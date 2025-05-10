@@ -34,7 +34,11 @@ project> project> nest g module auth
 project> nest g controller auth  
 project> nest g service auth  
 project> npm i @nestjs/passport
-project>
+
+
+================ Rate limiting and throttling ================
+
+project> npm i --save @nestjs/throttler
 project>
 project>
 project>
@@ -70,3 +74,7 @@ RBAC
     https://docs.nestjs.com/recipes/passport
     https://docs.nestjs.com/recipes/passport#implement-protected-route-and-jwt-strategy-guards
     https://docs.nestjs.com/recipes/passport#implementing-passport-strategies
+
+Rate limiting and throttling
+    https://docs.nestjs.com/security/rate-limiting#multiple-throttler-definitions
+    
