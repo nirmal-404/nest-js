@@ -1,3 +1,8 @@
+To use a service from Module A in Module B, you must:
+    Export the service in Module A by adding it to the exports array of @Module.
+    Import Module A into Module B using the imports array of @Module.
+
+
 ================= creating the crud =================
 
 project> nest generate module posts
@@ -13,17 +18,22 @@ crete post.interface.ts
 project> npm i --save class-validator class-transformer
 
 
-============ DB connection with typeORM and PG ============
+PostEntity
 project> npm i @nestjs/typeorm
 project> npm i typeorm
 project> npm i pg
 
 configure the type typeORM in app.module
 
-project>
-project>
-project>
-project>
+
+=========================== RBAC ===========================
+
+project> npm i @nestjs/jwt passport passport-jwt bcrypt
+project> npm i @types/passport-jwt @types/bcrypt -D
+project> project> nest g module auth
+project> nest g controller auth  
+project> nest g service auth  
+project> npm i @nestjs/passport
 project>
 project>
 project>
@@ -51,3 +61,12 @@ DB connection with typeORM and PG
     https://www.npmjs.com/package/@nestjs/typeorm
     https://www.npmjs.com/package/typeorm
     https://www.npmjs.com/package/pg
+
+RBAC
+    https://docs.nestjs.com/security/authentication
+    https://docs.nestjs.com/security/authentication#implementing-the-sign-in-endpoint
+    https://docs.nestjs.com/security/authentication#jwt-token
+    https://docs.nestjs.com/security/authorization#basic-rbac-implementation
+    https://docs.nestjs.com/recipes/passport
+    https://docs.nestjs.com/recipes/passport#implement-protected-route-and-jwt-strategy-guards
+    https://docs.nestjs.com/recipes/passport#implementing-passport-strategies

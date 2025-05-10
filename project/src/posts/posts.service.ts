@@ -1,10 +1,15 @@
-import { Injectable, NotFoundException } from '@nestjs/common'
+import {
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common'
 // import { Post } from './interfaces/post.interface'
 import { Post } from './entities/post.entity'
 import { Repository } from 'typeorm'
 import { InjectRepository } from '@nestjs/typeorm'
 import { UpdatePostDto } from './dto/update-post.dto'
 import { CreatePostDto } from './dto/create-post.dto'
+import { User, UserRole } from 'src/auth/entities/user.entity'
 
 @Injectable()
 export class PostsService {
@@ -43,12 +48,30 @@ export class PostsService {
   //     : 1
   // }
 
-  async findall (): Promise<Post[]> {
-    return await this.postsRepository.find()
+  async findall (): Promise<any> {
+    const posts = await this.postsRepository.find({
+      relations: ['authorName'],
+    })
+
+    return posts.map(post => {
+      const safeAuthor = {
+        id: post.authorName.id,
+        name: post.authorName.name,
+        role: post.authorName.role,
+      }
+      const { authorName, ...rest } = post
+      return {
+        ...rest,
+        authorName: safeAuthor,
+      }
+    })
   }
 
   async findById (id: number): Promise<Post> {
-    const post = await this.postsRepository.findOneBy({ id })
+    const post = await this.postsRepository.findOne({
+      where: { id },
+      relations: ['authorName'],
+    })
 
     if (!post) {
       throw new NotFoundException(`Post with id ${id} not found`)
@@ -56,13 +79,11 @@ export class PostsService {
     return post
   }
 
-  async create (
-    createPostData: CreatePostDto,
-  ): Promise<Post> {
+  async create (createPostData: CreatePostDto, authorName: User): Promise<Post> {
     const newlyCreatedPost = this.postsRepository.create({
       title: createPostData.title,
       content: createPostData.content,
-      authorName: createPostData.authorName,
+      authorName,
     })
     return this.postsRepository.save(newlyCreatedPost)
   }
@@ -70,27 +91,32 @@ export class PostsService {
   async update (
     id: number,
     updatePostData: UpdatePostDto,
+    user: User,
   ): Promise<Post> {
     const currentPost = await this.findById(id)
     if (!currentPost) {
       throw new NotFoundException(`Post with id ${id} not found`)
     }
 
-    if(updatePostData.title) {
+    if (currentPost.authorName.id !== user.id && user.role !== UserRole.ADMIN) {
+      throw new ForbiddenException(`You can update only your own posts`)
+    }
+
+    if (updatePostData.title) {
       currentPost.title = updatePostData.title
     }
-    if(updatePostData.content) {
+    if (updatePostData.content) {
       currentPost.content = updatePostData.content
     }
-    if(updatePostData.authorName) {
-      currentPost.authorName = updatePostData.authorName
-    }
+    // if(updatePostData.authorName) {
+    //   currentPost.authorName = updatePostData.authorName
+    // }
     return this.postsRepository.save(currentPost)
   }
 
   async delete (id: number): Promise<void> {
     const currentPost = await this.findById(id)
-    
+
     await this.postsRepository.remove(currentPost)
   }
 }
