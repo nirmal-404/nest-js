@@ -53,6 +53,10 @@ project> nest g module file-upload
 project> nest g controller file-upload
 project> nest g service file-upload
 
+===================== File upload module =====================
+project> npm i --save @nestjs/event-emitter
+project> nest g module events
+
 ======================== references ========================
 
 Pipes, DTO, Validations
