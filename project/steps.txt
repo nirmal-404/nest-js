@@ -39,7 +39,11 @@ project> npm i @nestjs/passport
 ================ Rate limiting and throttling ================
 
 project> npm i --save @nestjs/throttler
-project>
+
+
+====== Cachiing with in-memory + Pagination and Filtring =====
+
+project> npm install @nestjs/cache-manager cache-manager
 project>
 project>
 
@@ -77,4 +81,8 @@ RBAC
 
 Rate limiting and throttling
     https://docs.nestjs.com/security/rate-limiting#multiple-throttler-definitions
-    
+
+Cachiing with in-memory + pagination and filtring
+    https://docs.nestjs.com/techniques/caching#auto-caching-responses
+    https://docs.nestjs.com/techniques/caching#interacting-with-the-cache-store
+    https://docs.nestjs.com/techniques/caching#in-memory-cache
