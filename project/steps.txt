@@ -44,11 +44,14 @@ project> npm i --save @nestjs/throttler
 ====== Cachiing with in-memory + Pagination and Filtring =====
 
 project> npm install @nestjs/cache-manager cache-manager
-project>
-project>
+project> npm i --save-dev @types/express @types/multer
 
-
-
+===================== File upload module =====================
+project> npm i @nestjs/config @nestjs/platform-express cloudinary multer streamifier
+project> npm i --save-dev @types/express @types/multer
+project> nest g module file-upload
+project> nest g controller file-upload
+project> nest g service file-upload
 
 ======================== references ========================
 
