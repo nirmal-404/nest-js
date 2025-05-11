@@ -8,9 +8,15 @@ import { AuthModule } from './auth/auth.module'
 import { User } from './auth/entities/user.entity'
 import { ThrottlerModule } from '@nestjs/throttler'
 import { CacheModule } from '@nestjs/cache-manager'
+import { ConfigModule } from '@nestjs/config'
+import { FileUploadModule } from './file-upload/file-upload.module';
+import { File } from './file-upload/entities/file.entity'
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     ThrottlerModule.forRoot([
       {
         ttl: 60000,
@@ -29,11 +35,12 @@ import { CacheModule } from '@nestjs/cache-manager'
       username: 'postgres',
       password: 'root',
       database: 'nestjs-node-4',
-      entities: [Post, User], // array of entities to be used by TypeORM
+      entities: [Post, User, File], // array of entities to be used by TypeORM
       synchronize: true, // dev mode only, do not use in production
     }),
     PostsModule,
     AuthModule,
+    FileUploadModule,
   ],
   controllers: [AppController],
   providers: [AppService],
