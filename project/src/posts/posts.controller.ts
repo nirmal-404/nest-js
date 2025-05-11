@@ -25,18 +25,20 @@ import { CurrentUser } from 'src/auth/decorators/current-user.decorator'
 import { Roles } from 'src/auth/decorators/roles.decorators'
 import { UserRole } from 'src/auth/entities/user.entity'
 import { RolesGuard } from 'src/auth/guards/roles-guard'
+import { FindPostsQueryDto } from './dto/find-posts-query.dto'
+import { PaginatedResponse } from 'src/common/interfaces/paginated-response.interface'
 
 @Controller('posts')
 export class PostsController {
   constructor (private readonly postsService: PostsService) {}
 
-  // Get  ->  http://localhost:3000/posts
   @Get()
-  async findAll (): Promise<PostEntity[]> {
-    return this.postsService.findall()
+  async findAll (
+    @Query() query: FindPostsQueryDto,
+  ): Promise<PaginatedResponse<PostEntity>> {
+    return this.postsService.findAll(query)
   }
 
-  // Get  ->  http://localhost:3000/posts/1
   @Get(':id')
   async findById (
     @Param('id', ParseIntPipe, PostExistsPipe) id: number,
@@ -44,8 +46,6 @@ export class PostsController {
     return this.postsService.findById(id)
   }
 
-  // Post  ->  http://localhost:3000/posts/create
-  // Body  ->  { "title": "new post", "content": "this is a new post from postman", "authorName": "postman author" }
   @UseGuards(JwtAuthGuard)
   @Post('create')
   @HttpCode(HttpStatus.CREATED)
@@ -64,8 +64,6 @@ export class PostsController {
     return this.postsService.create(createPostData, user)
   }
 
-  // Put  ->  http://localhost:3000/posts/4
-  // Body  ->  { "title": "updated post", "content": "this is a updated post from postman", "authorName": "updated author" }
   @UseGuards(JwtAuthGuard)
   @Put(':id')
   async update (
@@ -76,8 +74,6 @@ export class PostsController {
     return this.postsService.update(id, updatePostData, user)
   }
 
-  //  Im allowing only aadmin to delete a post
-  // Delete  ->  http://localhost:3000/posts/4
   @Roles(UserRole.ADMIN)
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Delete(':id')
