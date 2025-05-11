@@ -11,6 +11,15 @@ export interface UserRegisteredEvent {
   timeStamp: Date;
 }
 
+export interface UserLoggedEvent {
+  user: {
+    id: number;
+    email: string;
+    name: string;
+  };
+  timeStamp: Date;
+}
+
 @Injectable()
 export class UserEventsService {
   constructor(private readonly eventEmitter: EventEmitter2) {}
@@ -29,5 +38,21 @@ export class UserEventsService {
     //event name
     //event data
     this.eventEmitter.emit('user.registered', userRegisteredEventData);
+  }
+
+  //Emit an user logged event
+  emitUserLogged(user: User): void {
+    const userLoggedEventData: UserRegisteredEvent = {
+      user: {
+        id: user.id,
+        email: user.email,
+        name: user.name,
+      },
+      timeStamp: new Date(),
+    };
+
+    //event name
+    //event data
+    this.eventEmitter.emit('user.logged', userLoggedEventData);
   }
 }
