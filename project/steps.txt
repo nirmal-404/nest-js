@@ -53,7 +53,7 @@ project> nest g module file-upload
 project> nest g controller file-upload
 project> nest g service file-upload
 
-===================== File upload module =====================
+===================== Events =====================
 project> npm i --save @nestjs/event-emitter
 project> nest g module events
 
@@ -93,3 +93,10 @@ Cachiing with in-memory + pagination and filtring
     https://docs.nestjs.com/techniques/caching#auto-caching-responses
     https://docs.nestjs.com/techniques/caching#interacting-with-the-cache-store
     https://docs.nestjs.com/techniques/caching#in-memory-cache
+
+File upload
+    https://docs.nestjs.com/techniques/file-upload#array-of-files
+    https://console.cloudinary.com/pm/c-d2464ef3d47efb434a23dd4e7f2907/getting-started
+    
+Events
+    http://docs.nestjs.com/techniques/events#events
