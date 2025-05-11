@@ -99,6 +99,9 @@ export class AuthService {
       )
     }
 
+    // Emit the user logged in event
+    this.userEventService.emitUserLogged(user);
+    
     //generate the tokens
     const tokens = this.generateTokens(user);
     const { password, ...result } = user;
