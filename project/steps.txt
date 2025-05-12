@@ -53,11 +53,18 @@ project> nest g module file-upload
 project> nest g controller file-upload
 project> nest g service file-upload
 
-===================== Events =====================
+=========================== Events ===========================
 project> npm i --save @nestjs/event-emitter
 project> nest g module events
 
-======================== references ========================
+======================== Interceptors ========================
+project>
+
+======================== Middleware ========================
+project>
+
+
+========================= references =========================
 
 Pipes, DTO, Validations
     https://docs.nestjs.com/
@@ -97,6 +104,12 @@ Cachiing with in-memory + pagination and filtring
 File upload
     https://docs.nestjs.com/techniques/file-upload#array-of-files
     https://console.cloudinary.com/pm/c-d2464ef3d47efb434a23dd4e7f2907/getting-started
-    
+
 Events
     http://docs.nestjs.com/techniques/events#events
+
+Interceptors
+    https://docs.nestjs.com/interceptors
+    https://docs.nestjs.com/interceptors#aspect-interception
+
+Middleware

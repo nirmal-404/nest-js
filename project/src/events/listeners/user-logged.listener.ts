@@ -18,4 +18,4 @@ export class UserLoggedListener {
       `Welcome back, ${user.email}!`,
     );
   }
-}
+} 
