@@ -1,6 +1,28 @@
-To use a service from Module A in Module B, you must:
-    Export the service in Module A by adding it to the exports array of @Module.
-    Import Module A into Module B using the imports array of @Module.
+============================================== concepts ==============================================
+
+*   To use a service from Module A in Module B, you must:
+        Export the service in Module A by adding it to the exports array of @Module.
+        Import Module A into Module B using the imports array of @Module.
+
+*   Execution Order in NestJS:
+
+    *   Middleware → Guard → Interceptor (before) → Pipe → Controller → Service → Interceptor (after) → Response    *
+
+    Middleware – Runs first. Handles raw requests before they reach the route handler. Great for logging, authentication token extraction, etc.
+
+    Guards – Runs after middleware. Used for authorization logic (e.g., role checks).
+
+    Interceptors (before controller) – Used for logging, transformation, caching, etc.
+
+    Pipes – Handle validation and transformation of incoming data.
+
+    Controller – The actual route handler.
+
+    Service – Called from the controller for business logic.
+
+    Interceptors (after controller) – Can transform the response or handle exceptions.
+
+    Response – Sent back to the client.
 
 
 ================= creating the crud =================
